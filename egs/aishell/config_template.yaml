@@ -1,0 +1,38 @@
+model:
+  feat_dim: 80
+  left_context: 3
+  right_context: 0
+  skip_frame: 3
+  norm_mean: True
+  norm_var: False
+  encoder:
+    type: BiRNN_Torch
+    input_dim: -1 # do not need to set, compute automaticly
+    hidden_size: 512 
+    num_layers: 4
+  decoder:
+    type: RNNDecoder
+    embed_dim: 512
+    vocab_size: -1 # do not need to set, compute automaticly
+    hidden_size: 1024
+    num_layers: 2
+    enc_dim: 1024
+    att_inner_dim: 1024
+    dropout_rate: 0.7
+trainer:
+  exp_dir: "exp3"
+  multi_gpu: True
+  batch_frames: 20000
+  num_epoch: 50
+  print_inteval: 10
+  multi_gpu: True
+  grad_max_norm: 5.0
+  init_lr: 1.0e-3
+  optim_type: adam
+schedule:
+  type: linear_decay_warmup
+  warmup_steps: 4000
+  x0: 0
+  y0: 1.0
+  x1: 8000
+  y1: 0.0005

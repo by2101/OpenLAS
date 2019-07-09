@@ -1,0 +1,32 @@
+model:
+  feat_dim: 40
+  left_context: 3
+  right_context: 3
+  skip_frame: 1
+  norm_mean: True
+  norm_var: False
+  encoder:
+    input_dim: -1 # do not need to set, compute automaticly
+    hidden_size: 512
+    num_layers: 4
+  decoder:
+    embed_dim: 320
+    vocab_size: -1 # do not need to set, compute automaticly
+    hidden_size: 512
+    num_layers: 2
+    enc_dim: 1024
+    att_inner_dim: 1024
+    dropout_rate: 0.7
+trainer:
+  exp_dir: "exp3"
+  batch_frames: 10000
+  num_epoch: 50
+  print_inteval: 10
+  multi_gpu: True
+  grad_max_norm: 50.0
+  init_lr: 0.1
+schedule:
+  init_lr: 0.05
+  final_lr: 0.0001
+  start_step: 1000
+  final_step: 4500
